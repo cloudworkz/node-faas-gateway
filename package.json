@@ -1,0 +1,51 @@
+{
+  "name": "apifs",
+  "version": "0.1.0",
+  "description": "Google Cloud Functions (JSON/REST) API Gateway",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:google-cloud-tools/node-faas-gateway.git",
+  "author": "Christian Froehlingsdorf <chris@5cf.de>",
+  "license": "SEE LICENSE IN ./LICENSE",
+  "private": false,
+  "scripts": {
+    "tsv": "tsc -v",
+    "prepublishOnly": "npm run build",
+    "build": "rm -rf dist/ && node_modules/.bin/tsc -p tsconfig.json",
+    "lint": "node_modules/.bin/tslint -c tslint.json -p tsconfig.json",
+    "fix": "node_modules/.bin/tslint -c tslint.json -p tsconfig.json --fix",
+    "test": "yarn build && NODE_ENV=production DEBUG=apifs:* node ./dist/test/index.js"
+  },
+  "keywords": [
+    "google",
+    "cloud",
+    "functions",
+    "api",
+    "gateway",
+    "http",
+    "access",
+    "authentication",
+    "json",
+    "rest",
+    "proxy"
+  ],
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "uuid": "~3.3.2"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/cors": "^2.8.4",
+    "@types/debug": "^4.1.2",
+    "@types/express": "^4.16.1",
+    "@types/node": "~11.11.3",
+    "@types/request": "^2.48.1",
+    "@types/uuid": "~3.4.4",
+    "tslint": "~5.14.0",
+    "typescript": "~3.3.3333"
+  }
+}

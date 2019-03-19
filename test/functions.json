@@ -1,0 +1,13 @@
+{
+    "functions": [
+        {
+            "name": "my-example-function",
+            "method": "POST",
+            "gatewayPath": "/some/path/woop",
+            "functionUrl": "http://localhost:18081/function/url",
+            "authType": "NONE",
+            "secret": "my-secret",
+            "timeout": 1500
+        }
+    ]
+}
