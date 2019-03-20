@@ -15,3 +15,4 @@ docker-compose.yml
 dockertest.sh
 bin/docker.json
 grafana.json
+dist/test/

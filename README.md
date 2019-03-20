@@ -1,4 +1,4 @@
-# apifs-gateway
+# apifs
 
 ```text
      ___      .______    __   _______     _______.

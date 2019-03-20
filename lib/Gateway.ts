@@ -11,6 +11,24 @@ import { Server } from "http";
 import * as pjson from "../package.json";
 import RequestHandler from "./RequestHandler";
 import CircuitClient from "./CircuitClient";
+import ConfigValidator from "./ConfigValidator";
+
+export const AUTH_TYPES = {
+    NONE: "NONE",
+    USER: "USER",
+    MACHINE: "MACHINE",
+    USER_AND_MACHINE: "USER_AND_MACHINE",
+};
+
+export const REQUEST_METHODS = {
+    GET: "GET",
+    POST: "POST",
+    PUT: "PUT",
+    PATCH: "PATCH",
+    DELETE: "DELETE",
+    HEAD: "HEAD",
+    OPTIONS: "OPTIONS",
+};
 
 export const CORRELATION_ID_HEADER = "correlation-id";
 const WARNING_LOG_MS = 3000;
@@ -46,6 +64,16 @@ export default class Gateway {
     private requestHandler: RequestHandler;
 
     constructor(gatewayConfig: GatewayConfig, functionsConfig: FunctionsConfig) {
+        
+        try {
+            new ConfigValidator(gatewayConfig, functionsConfig)
+                .validate();
+            debug("Configuration is valid.");
+        } catch (error) {
+            debug("Configuration Invalid:", error.message);
+            process.exit(1);
+        }
+
         this.gatewayConfig = gatewayConfig;
         this.functionsConfig = functionsConfig;
         this.app = express();

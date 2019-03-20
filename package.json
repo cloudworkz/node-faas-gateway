@@ -1,12 +1,9 @@
 {
   "name": "apifs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Google Cloud Functions (JSON/REST) API Gateway",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "apifs": "dist/index.js"
-  },
   "repository": "git@github.com:google-cloud-tools/node-faas-gateway.git",
   "author": "Christian Froehlingsdorf <chris@5cf.de>",
   "license": "SEE LICENSE IN ./LICENSE",
