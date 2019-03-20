@@ -1,0 +1,5 @@
+{
+    "port": 18018,
+    "enableWCCors": true,
+    "enableCorrelationIds": true
+}

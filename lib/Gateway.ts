@@ -64,7 +64,7 @@ export default class Gateway {
     private requestHandler: RequestHandler;
 
     constructor(gatewayConfig: GatewayConfig, functionsConfig: FunctionsConfig) {
-        
+
         try {
             new ConfigValidator(gatewayConfig, functionsConfig)
                 .validate();
@@ -85,16 +85,16 @@ export default class Gateway {
 
         debug("Init..");
 
-        if(this.gatewayConfig.enableWCCors) {
+        if (this.gatewayConfig.enableWCCors) {
             this.app.use(cors());
         }
-        
+
         // NOTE: this is slow, we should do this ourselves and pipe
         // however, its fast enough for now ;)
         this.app.use(bodyParser.json());
 
         this.app.use((req: express.Request, res: express.Response, _) => {
-            
+
             const onEndOfRequest = () => {
                 res.removeListener("finish", onEndOfRequest);
                 res.removeListener("close", onEndOfRequest);
@@ -107,11 +107,11 @@ export default class Gateway {
                 }
             };
 
-            if(this.gatewayConfig.enableCorrelationIds &&
-                !req.headers[CORRELATION_ID_HEADER]){
+            if (this.gatewayConfig.enableCorrelationIds &&
+                !req.headers[CORRELATION_ID_HEADER]) {
                 req.headers[CORRELATION_ID_HEADER] = uuid.v4();
             }
-            
+
             res.set("x-powered-by", `${pjson.name}/${pjson.version}`);
             res.set("cache-control", "no-cache");
 
@@ -129,7 +129,7 @@ export default class Gateway {
 
             res.on("finish", onEndOfRequest);
             res.on("close", onEndOfRequest);
-            
+
             res.locals.startTime = Date.now();
 
             this.requestHandler
@@ -150,7 +150,7 @@ export default class Gateway {
         return new Promise((resolve, reject) => {
             this.server = this.app.listen(this.gatewayConfig.port, (error: Error) => {
 
-                if(error) {
+                if (error) {
                     return reject(error);
                 }
 
@@ -162,11 +162,11 @@ export default class Gateway {
 
     public close(): Promise<Gateway> {
         debug("Closing..");
-        if(this.server){
+        if (this.server) {
             return new Promise((resolve, reject) => {
                 this.server!.close((error: Error | undefined) => {
 
-                    if(error) {
+                    if (error) {
                         return reject(error);
                     }
 

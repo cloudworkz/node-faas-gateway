@@ -1,5 +1,9 @@
 # apifs CHANGELOG
 
+## 2019-03-20, Version 0.3.0
+
+* added bin execution option and cli parsing
+
 ## 2019-03-20, Version 0.2.0
 
 * Fixed typo in readme (name)

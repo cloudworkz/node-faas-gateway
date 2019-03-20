@@ -1,6 +1,6 @@
 {
   "name": "apifs",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Google Cloud Functions (JSON/REST) API Gateway",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,8 @@
     "build": "rm -rf dist/ && node_modules/.bin/tsc -p tsconfig.json",
     "lint": "node_modules/.bin/tslint -c tslint.json -p tsconfig.json",
     "fix": "node_modules/.bin/tslint -c tslint.json -p tsconfig.json --fix",
-    "test": "yarn build && NODE_ENV=production DEBUG=apifs:* node ./dist/test/index.js"
+    "test": "yarn build && NODE_ENV=production DEBUG=apifs:* node ./dist/test/index.js",
+    "apifs": "node ./bin/apifs.js"
   },
   "keywords": [
     "google",
@@ -31,6 +32,7 @@
   ],
   "dependencies": {
     "body-parser": "^1.18.3",
+    "commander": "^2.19.0",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
     "express": "^4.16.4",
@@ -47,5 +49,9 @@
     "@types/uuid": "~3.4.4",
     "tslint": "~5.14.0",
     "typescript": "~3.3.3333"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "apifs": "bin/apifs.js"
   }
 }
