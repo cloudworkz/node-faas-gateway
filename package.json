@@ -4,6 +4,9 @@
   "description": "Google Cloud Functions (JSON/REST) API Gateway",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "apifs": "dist/index.js"
+  },
   "repository": "git@github.com:google-cloud-tools/node-faas-gateway.git",
   "author": "Christian Froehlingsdorf <chris@5cf.de>",
   "license": "SEE LICENSE IN ./LICENSE",
