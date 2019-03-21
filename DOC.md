@@ -55,3 +55,14 @@ apifs
     ]
 }
 ```
+
+### Misc
+
+#### Health Endpoints
+
+* `GET /admin/healthcheck`
+* `GET /admin/health`
+
+#### Ready Endpoints
+
+* `GET /admin/ready`

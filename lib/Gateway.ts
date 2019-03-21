@@ -62,6 +62,8 @@ export default class Gateway {
     private readonly app: express.Express;
     private server: Server | undefined;
     private requestHandler: RequestHandler;
+    private alive: boolean;
+    private ready: boolean;
 
     constructor(gatewayConfig: GatewayConfig, functionsConfig: FunctionsConfig) {
 
@@ -79,6 +81,29 @@ export default class Gateway {
         this.app = express();
         this.circuitClient = new CircuitClient(this);
         this.requestHandler = new RequestHandler(this);
+        this.alive = true;
+        this.ready = false;
+    }
+
+    public isAlive(): boolean {
+        return this.alive;
+    }
+
+    public isReady(): boolean {
+        return this.ready;
+    }
+
+    public getHealthStatus(): [number, any] {
+
+        const alive = this.isAlive();
+        const status = {
+            status: alive ? "UP" : "DOWN",
+        };
+
+        return [
+            alive ? 200 : 503,
+            status,
+        ];
     }
 
     public init(): Gateway {
@@ -92,6 +117,19 @@ export default class Gateway {
         // NOTE: this is slow, we should do this ourselves and pipe
         // however, its fast enough for now ;)
         this.app.use(bodyParser.json());
+
+        this.app.get("/admin/healthcheck", (req, res) => {
+            res.status(this.isAlive() ? 200 : 503).end();
+        });
+
+        this.app.get("/admin/health", (req, res) => {
+            const [status, body] = this.getHealthStatus();
+            res.status(status).json(body);
+        });
+
+        this.app.get("/admin/ready", (req, res) => {
+            res.status(this.isReady() ? 200 : 503).end();
+        });
 
         this.app.use((req: express.Request, res: express.Response, _) => {
 
@@ -155,6 +193,7 @@ export default class Gateway {
                 }
 
                 debug("Started, listening on port", this.gatewayConfig.port);
+                this.ready = true;
                 resolve(this);
             });
         });

@@ -1,5 +1,10 @@
 # apifs CHANGELOG
 
+## 2019-03-21, Version 0.4.0
+
+* added health and ready endpoints
+* refactored test to run with mocha
+
 ## 2019-03-20, Version 0.3.0
 
 * added bin execution option and cli parsing
