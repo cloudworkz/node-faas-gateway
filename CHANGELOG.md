@@ -1,5 +1,9 @@
 # apifs CHANGELOG
 
+## 2019-04-04, Version 0.5.0
+
+* IGNORE_SSL env flag
+
 ## 2019-03-21, Version 0.4.0
 
 * added health and ready endpoints

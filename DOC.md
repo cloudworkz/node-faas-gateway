@@ -66,3 +66,7 @@ apifs
 #### Ready Endpoints
 
 * `GET /admin/ready`
+
+#### Ignoring SSL Certificates
+
+You can set the `IGNORE_SSL=1` env variable to disable strictSSL and rejection of bad certificates.

@@ -8,10 +8,21 @@ import { CallOptions } from "./interfaces/CallOptions";
 
 export default class CircuitClient {
 
+    private readonly request: any;
     private readonly gateway: Gateway;
+    // TODO: circuit breaker missing
 
     constructor(gateway: Gateway) {
         this.gateway = gateway;
+
+        if (process.env.IGNORE_SSL) {
+            this.request = request.defaults({
+                strictSSL: false,
+                rejectUnauthorized: false,
+             });
+        } else {
+            this.request = request;
+        }
     }
 
     public call(options: CallOptions): Promise<FunctionResponse> {
@@ -19,7 +30,7 @@ export default class CircuitClient {
         (options as any).json = true;
         debug(`Calling ${options.method} ${options.url}`);
         return new Promise((resolve, reject) => {
-            request(options, (error: Error, response: any, body: any) => {
+            this.request(options, (error: Error, response: any, body: any) => {
 
                 if (error) {
                     return reject(error);
